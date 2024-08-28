@@ -1,5 +1,5 @@
 ## PA-1 Documentation
-##### **ALPHABET SOUP PROBLEM**: Create a function that takes a string and returns a string with its letters in alphabetical order.
+### **ALPHABET SOUP PROBLEM**: Create a function that takes a string and returns a string with its letters in alphabetical order.
 ##### Example:
 ##### alphabet_soup(“hello”) ➞ ehllo
 ##### alphabet_soup(“hacker”) ➞ acehkr
@@ -13,7 +13,7 @@
 ##### **Output**:
 ![image](https://github.com/user-attachments/assets/7661fc5c-a07e-471a-9afc-a5ca9e4957b2)
 
-##### **EMOTICON PROBLEM**: Create a function that changes specific words into emoticons. Given a sentence as a string, replace the words smile, grin, sad and mad with their corresponding emoticon:
+### **EMOTICON PROBLEM**: Create a function that changes specific words into emoticons. Given a sentence as a string, replace the words smile, grin, sad and mad with their corresponding emoticon:
 ##### Example:
 ##### emotify(“Make me smile”) ➞ Make me :)
 ##### emotify(“I am mad”) ➞ I am >:(
@@ -27,7 +27,7 @@
 ##### **Output**:
 ![image](https://github.com/user-attachments/assets/d68793d8-afe8-474e-92f8-286dacd26bf2)
 
-##### **UNPACKING LIST PROBLEM**: Unpack the list writeyourcodehere into three variables, being first, middle, and last, with middle being everything in between the first and last element. Then print all three variables
+### **UNPACKING LIST PROBLEM**: Unpack the list writeyourcodehere into three variables, being first, middle, and last, with middle being everything in between the first and last element. Then print all three variables
 ##### Example: lst = [1, 2, 3, 4, 5, 6]
 ##### Output: first: 1  middle: [2, 3, 4, 5]  last: 6
 ##### **Code**:
