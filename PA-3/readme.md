@@ -59,7 +59,7 @@ cars.head()
 **Cell 4**:
 ```
 # Saves the block of code inside string variable
-code = """
+code1 = """
 # Imports the pandas library
 import pandas as pd
 
@@ -72,13 +72,16 @@ print(cars.tail())
 """
 
 # Creates a python file in write mode
-file = open('Ramos_Pandas-P1.py', 'w')
-# Writes the content of 'code' into 'file'
-file.write(code)
+file1 = open('Ramos_Pandas-P1.py', 'w')
+# Writes the content of 'code1' into 'file1'
+file1.write(code1)
 # Closes the file
-file.close()
+file1.close()
 ```
-- 
+- The whole code block is saved on variable `code1` as a string.
+- `file1 = open('Ramos_Pandas-P1.py', 'w'` creates a file named `Ramos_Pandas-P1.py` with write mode. This returns a file object that is then stored to variable `file1`.
+- `file1.write(code1)` function then writes the contents of the previously saved string `code1` to that file.
+- `file1.close()` makes sure that the file is properly saved, freeing up any resources that were being used to keep the file open.
 ---
 2\. **PROBLEM 2**: Save your file as Surname_Pandas-P2.py
 
@@ -109,9 +112,9 @@ cars = pd.read_csv('cars.csv')
 # Performs slicing to print the first five rows with odd-numbered columns of data frame 'cars'
 cars.iloc[:5, 1::2]
 ```
-- Using the `.iloc[]` function, the data frame is sliced to display only the first five rows and the odd-numbered columns
-- Since we are to deal with odd numbers, `.iloc` is used to allow data access using integer-based indexing
-- In `[:5, 1::2]`, `:5` is inputted to display the first five rows while `1::2` is placed to display the column with index 1, then increases with step 2, to display the odd columns.
+- The `.iloc[]` function is used to slice the data frame, displaying only the first five rows and the odd-numbered columns.
+- Since we are working with odd numbers, `.iloc` is used for integer-based indexing to access data.
+- In `[:5, 1::2]`, `:5` selects the first five rows, while `1::2` starts from column with index 1 and selects every second column (i.e., the odd-numbered columns, starting from 1).
 
 **Output of Cell 2**:
 
@@ -128,10 +131,10 @@ cars.iloc[:5, 1::2]
 # Performs boolean indexing to display the row that contains 'Mazda RX4'
 cars[cars['Model'] == 'Mazda RX4']
 ```
-- Indexing with `[]`, the rows in the column `Model` is filtered to display only the `Model` with value `'Mazda RX4'`.
-- `[cars['Model']` refers to the column `'Model'` will be the one that is filtered.
-- `'Mazda RX4']` refers to the value of the column that will be selected.
-- `[cars['Model'] == 'Mazda RX4']` refers to the condition that will allow selection
+- `[cars['Model']` refers to the column `'Model'` in the data frame.
+- `'Mazda RX4']` is the specific value in the `'Model'` column that will be matched.
+- `[cars['Model'] == 'Mazda RX4']` creates a condition that checks which rows have `'Mazda RX4'` as the value in the `'Model'` column. 
+- Indexing with `[]` filters the rows of the data frame to display only those where the `Model` column has the value `'Mazda RX4'`.
 
 **Output of Cell 3**:
 
@@ -144,9 +147,9 @@ cars[cars['Model'] == 'Mazda RX4']
 # Performs boolean indexing to display the row of 'Camaro Z28' and columns of 'Model' and 'cyl' 
 cars.loc[cars['Model'] == 'Camaro Z28', ['Model', 'cyl']]
 ```
-- In the previous cell, only the rows has been filtered with the conditiond depending on the value of `Model`. Now, we are indexing through `.loc[]` to be able to filter the columns and use their respective labels.
-- `cars['Model'] ==  'Camaro Z28'` refers to the condition for selecting rows only with models `Camaro Z28`.
-- `['Model', 'cyl']` refers to the columns that will be displayed by using their labels.
+- `.loc[]` is used to filter both rows and columns based on their labes. Previously, we only filtered rows; now, we are also selecting specific columns.
+- `cars['Model'] ==  'Camaro Z28'` specifies the condition to select rows where the `'Model'` column matches the value `Camaro Z28`.
+- `['Model', 'cyl']` are the labels of the specific columns that will be displayed in the output.
 
 **Output of Cell 4**:
 
@@ -162,7 +165,8 @@ condition = (cars['Model'] == 'Mazda RX4 Wag') | (cars['Model'] == 'Ford Pantera
 # Performs boolean indexing to display the given 'Model' and columns of 'cyl' and 'gear'
 cars.loc[condition, ['Model', 'cyl', 'gear']]
 ```
-- 
+- The variable `condition` stores a boolean expression that will be used to filter rows based on the value in the `'Model'` column. The `|` operator is used to combine the conditions, meaning that if any of the conditions are true, the row will be selected.
+- `.loc[]` function is used to filter the data frame `cars` using the selected columns' respective labels.
 
 **Output of Cell 5**:
 
@@ -175,7 +179,7 @@ cars.loc[condition, ['Model', 'cyl', 'gear']]
 **Cell 6**:
 ```
 # Saves the block of code inside string variable
-code = """
+code2 = """
 # Imports the pandas library
 import pandas as pd
 
@@ -199,10 +203,13 @@ print(cars.loc[condition, ['Model', 'cyl', 'gear']])
 """
 
 # Creates a python file in write mode
-file = open('Ramos_Pandas-P2.py', 'w')
-# Writes the content of 'code' into 'file'
-file.write(code)
+file2 = open('Ramos_Pandas-P2.py', 'w')
+# Writes the content of 'code2' into 'file2'
+file2.write(code2)
 # Closes the file
-file.close()
+file2.close()
 ```
-- 
+- The whole code block is saved on variable `code2` as a string.
+- `file2 = open('Ramos_Pandas-P2.py', 'w'` creates a file named `Ramos_Pandas-P2.py` with write mode. This returns a file object that is then stored to variable `file2`.
+- `file2.write(code2)` function then writes the contents of the previously saved string `code2` to that file.
+- `file2.close()` makes sure that the file is properly saved, freeing up any resources that were being used to keep the file open.
