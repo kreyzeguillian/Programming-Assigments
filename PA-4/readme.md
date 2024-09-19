@@ -44,7 +44,7 @@ import matplotlib.pyplot as plt
 df = pd.read_excel('board2.xlsx')
 df
 ```
-- The first five rows of the data frame is printed using function `.head(default = 5)`.
+- The `board2.xlsx` file is loaded using the `pd.read_excel()` function, and then displayed.
 
 **Output of Cell 2**:
 
@@ -71,7 +71,7 @@ Instru = df.loc[(df['Track'] == 'Instrumentation') &
                 ['Name', 'GEAS', 'Electronics']].reset_index(drop=1)
 Instru
 ```
-- The last five rows of the data frame is displayed using function `.tail(default = 5)`.
+- The data frame `df` is indexed to create a new subset.
 
 **Output of Cell 3**:  
 
@@ -93,10 +93,8 @@ Mindy = df.loc[(df['Hometown'] == 'Mindanao') &
                ['Name', 'Track', 'Electronics', 'Average']].reset_index(drop=1)
 Mindy
 ```
-- The whole code block is saved on variable `code1` as a string.
-- `file1 = open('Ramos_Pandas-P1.py', 'w')` creates a file named `Ramos_Pandas-P1.py` with write mode. This returns a file object that is then stored to variable `file1`.
-- `file1.write(code1)` function then writes the contents of the previously saved string `code1` to that file.
-- `file1.close()` makes sure that the file is properly saved, freeing up any resources that were being used to keep the file open.
+- A column named `Average` is added and contains the average of the grades.
+- The data frame `df` is indexed to create a new subset.
 
 **Output of Cell 4**:
 
@@ -143,6 +141,8 @@ plotter('Track')
 # Function call to create a plot by 'Hometown'
 plotter('Hometown')
 ```
-- The pandas library is imported as `pd` and the `cars.csv` file that contains the dataframe is loaded and stored to variable `cars`.
+- Three plots are created to visualize the features with respect to the average grades.
 
 **Output of Cell 1**:
+
+<img src="https://github.com/kreyzeguillian/Programming-Assigments/blob/main/PA-4/ss4githubPA4.3.png" alt="Alt text" height="250"/><img src="https://github.com/kreyzeguillian/Programming-Assigments/blob/main/PA-4/ss4githubPA4.4.png" alt="Alt text" height="250"/><img src="https://github.com/kreyzeguillian/Programming-Assigments/blob/main/PA-4/ss4githubPA4.5.png" alt="Alt text" height="250"/>
