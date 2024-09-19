@@ -1,14 +1,30 @@
-# PA-4 Documentation
-#### Before anything else, the `cars.csv` file is placed within the same directory as the notebook
-![Alt text](https://github.com/kreyzeguillian/Programming-Assigments/blob/main/PA-3/ss.png)  
+# PA-4 Documentation  
+Before anything else, the `board2.xlsx` file that contains the data frame is downloaded from the course site  
+
+<img src="https://github.com/kreyzeguillian/Programming-Assigments/blob/main/PA-4/ss4githubPA4.2.png" alt="Alt text" width="600"/>
+
+After downloading, the excel file is placed within the same directory as the jupyter notebook  
+
+<img src="https://github.com/kreyzeguillian/Programming-Assigments/blob/main/PA-4/ss4githubPA4.png" alt="Alt text" width="500"/>
+
 ---
-1\. **PROBLEM 1**: Save your file as Surname_Pandas-P1.py  
+### **ECE BOARD EXAM PROBLEM**:
+Using data wrangling and data visualization technique with storytelling, analyze the data and present different (i) data frames; and (ii) visuals using the dataset given.
 
-Using knowledge obtained from the experiment and demonstrations:  
+&nbsp;&nbsp;&nbsp;&nbsp;1. Create the following data frames based on the format provided:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Example: Vis = [“Name”, “Gender”, “Track”, “Math<70”]; hometown is constant as Visayas
 
-&nbsp;&nbsp;&nbsp;&nbsp;a. Load the corresponding .csv file into a data frame named cars using pandas  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output:
 
-&nbsp;&nbsp;&nbsp;&nbsp;b. Display the first five and last five rows of the resulting cars.
+| Name   | Gender |   Track |   Math |
+|---:|:------------------|------:|------:|
+| S4 | Male | Instrumentation | 65 |
+| S11 | Female | Communication | 48 |
+| S22 | Female | Communication | 64 |
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Filename: Instru = [“Name”, “GEAS”, “Electronics >70”]; where track is constant as Instrumentation and hometown Luzon
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Filename: Mindy = [ “Name”, “Track”, “Electronics”, “Average >=55”]; where hometown is constant as Mindanao and gender Female
 
 ### **Code/Explanations**:  
 
