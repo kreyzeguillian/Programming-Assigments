@@ -20,7 +20,7 @@ import pandas as pd
 # Loads the .csv file into a data frame named 'cars'
 cars = pd.read_csv('cars.csv')
 ```
-- The pandas library is imported as `pd` and the `cars.csv` file that contains the dataframe is stored to variable `cars`.
+- The pandas library is imported as `pd` and the `cars.csv` file that contains the dataframe is loaded and stored to variable `cars`.
   
 **Cell 2**:
 ```
@@ -79,7 +79,7 @@ file1.write(code1)
 file1.close()
 ```
 - The whole code block is saved on variable `code1` as a string.
-- `file1 = open('Ramos_Pandas-P1.py', 'w'` creates a file named `Ramos_Pandas-P1.py` with write mode. This returns a file object that is then stored to variable `file1`.
+- `file1 = open('Ramos_Pandas-P1.py', 'w')` creates a file named `Ramos_Pandas-P1.py` with write mode. This returns a file object that is then stored to variable `file1`.
 - `file1.write(code1)` function then writes the contents of the previously saved string `code1` to that file.
 - `file1.close()` makes sure that the file is properly saved, freeing up any resources that were being used to keep the file open.
 ---
@@ -105,7 +105,7 @@ import pandas as pd
 # Loads the .csv file into a data frame named 'cars'
 cars = pd.read_csv('cars.csv')
 ```
-- The pandas library is imported as `pd` and the `cars.csv` file that contains the dataframe is stored to variable `cars`.
+- The pandas library is imported as `pd` and the `cars.csv` file that contains the dataframe is loaded and stored to variable `cars`.
 
 **Cell 2**:
 ```
