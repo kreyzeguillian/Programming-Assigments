@@ -407,3 +407,38 @@ As shown in the above statistics, the *"streams"* column has a mean of **5.14e+0
 
 
 #### Data Visualization
+
+The following code plots the distribution of *"released_year"* and *"artist_count"*:
+```python
+# Sets the figure size to shape (12, 6)
+plt.figure(figsize=(12, 6))
+
+# Creates a subplot that has 2 plots in position 1
+plt.subplot(1,2,1)
+
+# Plots a histogram with 'released_year' as the column being considered
+sns.histplot(data = df, x = 'released_year', bins=11, color = 'Red')
+
+# Adds the necessary labels for the graph 
+plt.title('Distribution of Released Year')
+plt.xlabel('Released Year')
+plt.ylabel('No. of Tracks Produced')
+
+# Creates a subplot that has 2 plots in position 2
+plt.subplot(1,2,2)
+
+# Plots a histogram with 'released_year' as the column being considered
+sns.histplot(data = df, x = 'artist_count', bins = 11, color='Orange')
+
+# Adds the necessary labels for the graph 
+plt.title('Distribution of Artist Count')
+plt.xlabel('Number of Artists')
+plt.ylabel('No. of Tracks Produced')
+
+# Displays the plot
+plt.show()
+```
+Output:
+![image](https://github.com/user-attachments/assets/c6395f30-f4fb-4744-980c-8e2f48e1065b)
+
+
