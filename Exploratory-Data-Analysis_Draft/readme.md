@@ -30,7 +30,7 @@ This project focuses on performing an exploratory data analysis (EDA) on a Spoti
 
 ### About the Dataset
 
-This dataset provides a detailed look at 2023's most popular songs as highlighted on Spotify, one of the world's leading music streaming platforms known for its vast library, curated playlists, and personalized recommendations. The dataset includes more than the usual metrics, covering track names, artist/s, release dates, and streaming characteristics. It also tracks each song's presencec on Spotify playlists and charts, along with appearances on Apple Music, Deezer, and Shazam. With various musical attributes included, the dataset is a comprehensive tool for analyzing song popularity across platforms.
+This dataset, created by Data Scientist Nidula Elgiriyewithana, provides a detailed look at 2023's most popular songs as highlighted on Spotify, one of the world's leading music streaming platforms known for its vast library, curated playlists, and personalized recommendations. The dataset includes more than the usual metrics, covering track names, artist/s, release dates, and streaming characteristics. It also tracks each song's presencec on Spotify playlists and charts, along with appearances on Apple Music, Deezer, and Shazam. With various musical attributes included, the dataset is a comprehensive tool for analyzing song popularity across platforms.
 
 
 ### Exploration Questions
