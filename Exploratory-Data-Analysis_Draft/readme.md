@@ -3,7 +3,7 @@
 
 
 ## Table of Contents
-- [Introduction](#introduction)
+- Introduction
   - About the Dataset
   - Exploration Questions
   - Formatting Conventions
