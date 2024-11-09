@@ -9,16 +9,17 @@
   - Formatting Conventions
 - Exploratory Data Analysis
   - Essentials
-  - [Overview of the Data](#overview-of-the-data)
-  - [Data Cleaning and Preprocessing](#data-cleaning-and-preprocessing)
+  - Overview of the Data
+  - Data Cleaning and Preprocessing
     - Handling Missing Values
     - Handling Data Type Inconsistencies
     - Handling Duplicates
-  - [Data Exploration and Analysis](#data-exploration-and-analysis)
+  - Data Exploration and Analysis
     - Summary of Statistics
     - Data Visualization
-  - [Key Insights](#key-insights)
-- [References](#references)
+  - Key Insights
+- References
+- About Me
 
 
 
@@ -486,8 +487,8 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/9a5b6222-23d9-46ed-8b46-52ada336a123)
 
-***Exploration Question 3.2 Who are the top 5 most frequent artists based on the number of tracks in the dataset? 
-
+***Exploration Question 3.2 Who are the top 5 most frequent artists based on the number of tracks in the dataset?  
+As observed in the plot above, the top 5 most frequent artists based on the number of tracks they produced include Bad Bunny, Taylor Swift, The Weeknd, SZA, and Kendrick Lamar.***
 
 The following counts the number of tracks released per year:
 ```python
@@ -514,6 +515,7 @@ Output:
 ![image](https://github.com/user-attachments/assets/aae541ed-e2f0-47aa-9ca1-2afebf86243d)
 
 ***Exploration Question 4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
+Based on the visual plot, the number of tracks produced follows the proportional increase in year produced. Tracks that are produced recently are much higher than tracks released in the 90's***
 
 The following counts the number of tracks released per month:
 ```python
@@ -539,7 +541,8 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/367915a0-5247-4cd8-9b68-aeb67efeb2c5)
 
-***Exploration Question 4.2 Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
+***Exploration Question 4.2 Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?  
+Based on the plot above, the number of tracks produced seems to be on the higher side in the first half of the year. Tracks produced later in the year is not as high compared with the first half.***
 
 
 The following prepares the essentials for plotting heatmaps. `corrwith()` obtains the correlation between *"streams"* and the `columns_to_plot`:
@@ -569,7 +572,8 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/dd61e8ab-e303-4118-9eb1-9a44849250df)
 
-***Exploration Question 5.1 Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
+***Exploration Question 5.1 Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?  
+Having correlation coefficients of -0.11, both danceability and speechiness have the highest influence on streams. However, this is an inversely proportional relationship due to the coefficIents being negative. Aside from these two, the other columns seems to not have much of an influence compared the two.***
 
 
 The following plots a heatmap of the columns *"danceability_%"*, *"valence_%"*, *"energy_%"*, and *"acousticness_%"*:
@@ -589,7 +593,8 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/e234bdfa-df5a-4e2a-b294-3ab82fb7bdd9)
 
-***Exploration Question 5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
+***Exploration Question 5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?  
+Based on the graph above, there seems to be a semblance of correlation between danceability and energy. Valence and acousticness, on the other hand, has very low correlation due to its correlation coefficient being -0.082.*** 
 
 
 The following prepares the data for plotting:
@@ -622,7 +627,8 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/50834385-d750-4c75-9618-df2ff40a85b4)
 
-***Exploration Question 6.1 How do the numbers of tracks in spotify_playlists, deezer_playlists, and apple_playlists compare? Which platform seems to favor the most popular tracks?
+***Exploration Question 6.1 How do the numbers of tracks in spotify_playlists, deezer_playlists, and apple_playlists compare? Which platform seems to favor the most popular tracks?  
+Based on the output, spotify seems to significantly overwhelm the two other playlist in terms of playlist count. This means that it is spotify that favor the most popular tracks.***
 
 The following groups the data with common *"key"* and *"mode"* values:
 ```python
@@ -665,7 +671,8 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/5e9c69d2-d039-4534-adca-c71dedb55895)
 
-***Exploration Question 7.1 Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
+***Exploration Question 7.1 Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?  
+Based on the plot, tracks that are in C#, G, G# keys seems to gain the most streams. Followed by these two keys is D. For mode, it seems that tracks that have major as their mode, seems to garner higher number of streams.***
 
 
 The following code groups and melts the exploded data as part of the preparation for plotting. Melting is necessary to arrange the data frame such that it would be able to graph the playlists categorically:
@@ -727,12 +734,24 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/e2db501e-9dc2-457a-9e90-7f6e61c7455e)
 
-***Exploration Question 7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
+***Exploration Question 7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.  
+For both the spotify and apple playlist, it can be seen that The Weeknd appeared the most. In the deezer playlist, it is eminem that topped the lists. For the apple, spotify, and deezer charts, it is bad bunny that is most frequently seen. When it comes to shazam charts, on the other hand, it is Taylor Swift that leads the rest.***
 
 
 
+### Key Insights
+Key insights:
+* Tracks produced recently are much common than tracks produced in older dates. This indicate that Spotify focuses on recently produced tracks than older ones.
+* Tracks produced are higher in the first months of the year. This means artists tend to produce early at the year.
+* Spotify users favor songs that are produced in major mode. For keys, they prefer those produced in C#
+* Collaboration between artists is uncommon in producing tracks
 
 
+## References
+Spotify Dataset
+ELGIRIYEWITHANA, NIDULA. “Most Streamed Spotify Songs 2023.” Www.kaggle.com, www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023.
 
-
-
+## About Me
+Guillian R. Ramos
+2ECE-D
+guillian.ramos.eng@ust.edu.ph
