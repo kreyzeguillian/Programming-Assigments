@@ -441,4 +441,46 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/c6395f30-f4fb-4744-980c-8e2f48e1065b)
 
+***Exploration Question 2.2 What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?  
+Based on the preview of the dataset above, there are exactly 953 rows and 24 columns without the inclusion of the table headers.***
+
+
+Output:
+![image](https://github.com/user-attachments/assets/d0bdca8f-fdea-4820-b488-88111f3a0d18)
+
+
+Output:
+![image](https://github.com/user-attachments/assets/9a5b6222-23d9-46ed-8b46-52ada336a123)
+
+Output:
+![image](https://github.com/user-attachments/assets/aae541ed-e2f0-47aa-9ca1-2afebf86243d)
+
+Output:
+![image](https://github.com/user-attachments/assets/367915a0-5247-4cd8-9b68-aeb67efeb2c5)
+
+Output:
+![image](https://github.com/user-attachments/assets/dd61e8ab-e303-4118-9eb1-9a44849250df)
+
+Output:
+![image](https://github.com/user-attachments/assets/e234bdfa-df5a-4e2a-b294-3ab82fb7bdd9)
+
+Output:
+![image](https://github.com/user-attachments/assets/50834385-d750-4c75-9618-df2ff40a85b4)
+
+Output:
+![image](https://github.com/user-attachments/assets/5e9c69d2-d039-4534-adca-c71dedb55895)
+
+Output:
+![image](https://github.com/user-attachments/assets/8e38caf8-db5f-467e-9c5d-58668def278d)
+
+Output:
+![image](https://github.com/user-attachments/assets/e2db501e-9dc2-457a-9e90-7f6e61c7455e)
+
+
+
+
+
+
+
+
 
