@@ -442,40 +442,292 @@ Output:
 ![image](https://github.com/user-attachments/assets/c6395f30-f4fb-4744-980c-8e2f48e1065b)
 
 ***Exploration Question 2.2 What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?  
-Based on the preview of the dataset above, there are exactly 953 rows and 24 columns without the inclusion of the table headers.***
+Based on the plot, there is a noticeable increase in the number of tracks produced over the years, with a rise around the 2000's, and a much larger spike in recent years. As for artist count distribution, we can see a substantial drop for tracks involving multiple artists. Tracks with two artists are the second most common, while tracks involving three or more artists become rare.***  
 
+***As for outliers, it can be obsrved that there are tracks in the 90's but in a very small amount. For artist count, there are some tracks that involved 8 artists, which is a signifciant outlier considering that most tracks are produced by one or two persons commonly.***
 
 Output:
 ![image](https://github.com/user-attachments/assets/d0bdca8f-fdea-4820-b488-88111f3a0d18)
 
+***Exploration Question 3.1 Which track has the highest number of streams? Display the top 5 most streamed tracks.  
+As observed in the graph above, it can be seen that **"Blinding Lights"** has the highest number of streams among the top 5.***
 
+
+For most frequent artists, we need to explode the artists_name column to individualize the tracks with multiple artists
+```python
+# Explodes the 'artist(s)_name' column
+df_exploded = df.explode('artist(s)_name').reset_index(drop=True)
+
+# Counts the total number of tracks each artist produced
+artist_trackcount = df_exploded['artist(s)_name'].value_counts()
+
+# Obtains the 5 highest values in the 'artist_trackcount'
+top5_artist_intracks = artist_trackcount.nlargest(5).reset_index()
+
+# Converts the previously listed 'artist(s)_name' column into strings
+df['artist(s)_name'] = df['artist(s)_name'].apply(lambda x: ', '.join(x))
+```
+The following code plots the artists with most tracks produced (track collaborations are counted):
+```python
+# Sets the figure size to shape (10, 6)
+plt.figure(figsize=(10, 6))
+
+# Plots a horizontal barplot with 'count' and 'artist(s)_name' as x and y respectively
+sns.barplot(data = top5_artist_intracks, x = 'count', y = 'artist(s)_name', hue = 'artist(s)_name', palette = 'crest')
+
+# Adds the necessary labels for the graph
+plt.title('Top 5 Artists based on Tracks Released')
+plt.xlabel('Total Number of Tracks Produced')
+plt.ylabel('Artists')
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/9a5b6222-23d9-46ed-8b46-52ada336a123)
 
+***Exploration Question 3.2 Who are the top 5 most frequent artists based on the number of tracks in the dataset? 
+
+
+The following counts the number of tracks released per year:
+```python
+# Counts the total number of tracks released per year
+tracks_inyears = df['released_year'].value_counts().reset_index()
+```
+For plotting, the code below is implemented. A line plot is used to analyze trends over the years:
+```python
+# Sets the figure size to shape (12, 6)
+plt.figure(figsize = (12, 6))
+
+# Plots a line plot with 'released_year' and 'count' as x and y respectively
+sns.lineplot(data = tracks_inyears, x = 'released_year', y = 'count', color = 'Blue')
+
+# Adds the necessary labels for the graph
+plt.title('Number of tracks Released per Year')
+plt.xlabel('Year')
+plt.ylabel('Number of Tracks')
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/aae541ed-e2f0-47aa-9ca1-2afebf86243d)
 
+***Exploration Question 4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
+
+The following counts the number of tracks released per month:
+```python
+# Counts the total number of tracks released per month
+tracks_inmonths = df['released_month'].value_counts().reset_index()
+```
+The following code plots the relation between month and tracks produced:
+```python
+# Sets the figure size to shape (12, 6)
+plt.figure(figsize = (12, 6))
+
+# Plots a barplot with 'released_month' and 'count' as x and y respectively
+sns.barplot(data = tracks_inmonths, x = 'released_month', y = 'count', hue = 'released_month', palette = 'magma', legend=  False)
+
+# Adds the necessary labels for the graph
+plt.title('Number of tracks Released per Month')
+plt.xlabel('Month')
+plt.ylabel('Total Number of Tracks')
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/367915a0-5247-4cd8-9b68-aeb67efeb2c5)
 
+***Exploration Question 4.2 Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?
+
+
+The following prepares the essentials for plotting heatmaps. `corrwith()` obtains the correlation between *"streams"* and the `columns_to_plot`:
+```python
+# Filters the dataframe to only contain the following columns
+columns_to_plot = df[['bpm', 'danceability_%', 'valence_%', 'energy_%', 'acousticness_%', 'instrumentalness_%', 'liveness_%', 'speechiness_%']]
+
+# Calculates the correlation of each selected attribute with the 'streams' column and converts the result to a DataFrame for plotting
+correlation_series = columns_to_plot.corrwith(df['streams'])
+correlation_df = correlation_series.to_frame(name='Correlation with Streams')
+```
+The following plots a heatmap with the correlation annotated:
+```python
+# Sets the figure size to shape (11, 4)
+plt.figure(figsize=(11, 4))
+
+# Plots a heatmap for the data frame 'correlation_df'
+sns.heatmap(correlation_df, annot=True, cmap='coolwarm')
+
+# Adds the necessary labels for the graph
+plt.title('Correlation of Streams with Musical Attributes')
+plt.ylabel('Music Attributes')
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/dd61e8ab-e303-4118-9eb1-9a44849250df)
 
+***Exploration Question 5.1 Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?
+
+
+The following plots a heatmap of the columns *"danceability_%"*, *"valence_%"*, *"energy_%"*, and *"acousticness_%"*:
+```python
+# Sets the figure size to shape (12, 4)
+plt.figure(figsize=(12, 4))
+
+# Plots a heatmap for the column_filtered data frame
+sns.heatmap(df.iloc[:,17:21].corr(), annot=True, cmap='viridis')
+
+# Adds the necessary label for the graph
+plt.title('Correlation Heatmap for danceability, energy, valence, and acousticness')
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/e234bdfa-df5a-4e2a-b294-3ab82fb7bdd9)
 
+***Exploration Question 5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?
+
+
+The following prepares the data for plotting:
+```python
+# Obtains the sum of playlist count of each track
+total_perplaylist = df[['in_spotify_playlists', 'in_apple_playlists', 'in_deezer_playlists']].sum().reset_index()
+
+# Sets the column names to 'Platform' and 'Total Playlists' respectively
+total_perplaylist.columns = ['Platform', 'Total Playlists']
+
+# Renames the values in the 'Platform' column
+total_perplaylist['Platform'] = ['Spotify Playlist', 'Apple Playlist', 'Deezer Playlist']
+```
+The following plots the prepared data
+```python
+# Sets the figure size to shape (12, 6)
+plt.figure(figsize=(12,6))
+
+# Plots a barplot with 'Platform' and 'Total Playlists' as x and y respectively
+sns.barplot(data = total_perplaylist, x = 'Platform', y = 'Total Playlists', hue = 'Platform', palette = ['#1DB954', '#FF2D55', '#FF5A1F'])
+
+# Adds the necessary label for the graph
+plt.title('Total Number of Playlist per Platform')
+plt.xlabel('Platform')
+plt.ylabel('Total Number of Playlists')
+
+# Displays the Plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/50834385-d750-4c75-9618-df2ff40a85b4)
 
+***Exploration Question 6.1 How do the numbers of tracks in spotify_playlists, deezer_playlists, and apple_playlists compare? Which platform seems to favor the most popular tracks?
+
+The following groups the data with common *"key"* and *"mode"* values:
+```python
+# Groups and sums the common values in 'key' with the exception of 'unrecorded' values
+key_streams_group = df[df['key'] != 'unrecorded'].groupby('key')['streams'].sum().reset_index()
+
+# Groups and sums the common values in 'mode'
+mode_streams_group = df.groupby('mode')['streams'].sum().reset_index()
+```
+The following plots the grouped data:
+```python
+# Sets the figure size to shape (12, 6)
+plt.figure(figsize=(12,6))
+
+# Creates a subplot that has 2 plots in position 1
+plt.subplot(1,2,1)
+
+# Plots a barplot with 'key' and 'streams' as x and y respectively
+sns.barplot(data = key_streams_group, x = 'key', y = 'streams', hue = 'key', palette = 'rocket_r')
+
+# Adds the necessary label for the graph
+plt.title = 'Streams v.s. Key',
+plt.ylabel = 'Streams'
+plt.xlabel = 'Key'
+
+# Creates a subplot that has 2 plots in position 2
+plt.subplot(1,2,2)
+
+# Plots a barplot with 'mode' and 'streams' as x and y respectively
+sns.barplot(data = mode_streams_group, x = 'mode', y = 'streams', hue = 'mode', palette = 'Blues')
+
+# Adds the necessary label for the graph
+plt.title = 'Streams v.s. Key',
+plt.ylabel = 'Streams'
+plt.xlabel = 'Key'
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/5e9c69d2-d039-4534-adca-c71dedb55895)
 
+***Exploration Question 7.1 Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?
+
+
+The following code groups and melts the exploded data as part of the preparation for plotting. Melting is necessary to arrange the data frame such that it would be able to graph the playlists categorically:
+```python
+artist_playlists_group = df_exploded.groupby('artist(s)_name')[['in_spotify_playlists', 'in_apple_playlists', 'in_deezer_playlists']].sum().reset_index()
+artist_playlists_group['Total'] = artist_playlists_group.iloc[:,1:].sum(axis=1)
+top5_artist_inplaylists = artist_playlists_group.nlargest(5, 'Total')
+melted_df_playlist = top5_artist_inplaylists.melt(id_vars='artist(s)_name', value_vars=['in_spotify_playlists', 'in_apple_playlists', 'in_deezer_playlists', 'Total'],
+                                                  var_name='Platform', value_name='Total Number of Playlists')
+
+melted_df_playlist.rename(columns = {'artist(s)_name':'Artist'}, inplace=True)
+
+platform_color = ['#4CAF50', '#F44336', '#FF9800', '#000000']
+```
+The following plots the grouped/prepared data:
+```python
+plt.figure(figsize=(12, 6))
+
+sns.barplot(data=melted_df_playlist, x='Artist', y='Total Number of Playlists', hue='Platform', palette=platform_color)
+plt.legend(title = "Platform")
+plt.xticks(rotation=0)
+
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/8e38caf8-db5f-467e-9c5d-58668def278d)
 
+The same is done in the code below, with an addition function used to count the presence of each artist in each chart. Charts generally represent the rankings of tracks. Hence, it is unreasonable to sum the chart values. Instead, we will select non-zero values, and we will treat them as tracks that were able to reach charts. A value of 0 means that the track is not counted in the artist's presence:
+```python
+def convert_to_binary(x):
+    if x > 0:
+        return 1
+    else:
+        return 0
+
+df_exploded.iloc[:,[7,10,12,13]] = df_exploded.iloc[:,[7,10,12,13]].map(convert_to_binary)
+
+artist_charts_group = df_exploded.groupby('artist(s)_name')[['in_spotify_charts', 'in_apple_charts', 'in_deezer_charts', 'in_shazam_charts']].sum().reset_index()
+
+artist_charts_group['Total'] = artist_charts_group.iloc[:,1:].sum(axis=1)
+top5_artist_incharts = artist_charts_group.nlargest(5, 'Total')
+melted_df_charts = top5_artist_incharts.melt(id_vars='artist(s)_name', value_vars=['in_spotify_charts', 'in_apple_charts', 'in_deezer_charts', 'in_shazam_charts', 'Total'],
+                                             var_name='Platform', value_name='Total Number of Charts Achieved')
+
+melted_df_charts.rename(columns = {'artist(s)_name':'Artist'}, inplace=True)
+
+platform_color = ['#4CAF50', '#F44336', '#FF9800', '#0000FF', '#000000']
+```
+The following plots the resulting grouped data:
+```python
+plt.figure(figsize=(12, 6))
+
+sns.barplot(data=melted_df_charts, x='Artist', y='Total Number of Charts Achieved', hue='Platform', palette=platform_color)
+plt.legend(title = "Platform")
+plt.xticks(rotation=0)
+
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/e2db501e-9dc2-457a-9e90-7f6e61c7455e)
 
+***Exploration Question 7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.
 
 
 
