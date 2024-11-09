@@ -57,7 +57,7 @@ The following are some questions that this EDA aims to answer:
   5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?  
 
 6. Platform Popularity  
-  6.1 How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?  
+  6.1 How do the numbers of tracks in spotify_playlists, deezer_playlists, and apple_playlists compare? Which platform seems to favor the most popular tracks?  
 
 7. Advanced Analysis  
   7.1 Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?  
@@ -91,6 +91,7 @@ This section covers the exploratory data analysis process, including all essenti
 ### Essentials
 The following code imports the necessary python libraries and dependencies that will be used in this project:
 ```python
+# Imports necessary python libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -99,6 +100,7 @@ In this project, pandas is used for data preprocessing and cleaning, allowing fo
 
 The following imports the spotify dataset using the `pd.read_csv` function. An additional parameter of `encoding = 'ISO-8859-1'` is added within the function to read non UTF-8 csv files.
 ```python
+# Reads the csv file and stores it to variable 'df'
 df = pd.read_csv('spotify-2023.csv', encoding = 'ISO-8859-1')
 ```
 
@@ -144,6 +146,7 @@ Missing values are common in datasets, especially with large ones. Due to these 
 
 The following code gives an overview of columns that contain **NaN** values.
 ```python
+# Sums the number of 'NaN' (missing) values in each column of the DataFrame
 print(df.isna().sum())
 ```
 Output:
@@ -180,6 +183,7 @@ To answer the second question, yes and there are two columns that contains such.
 
 As part of the cleaning process, the following code fills these **NaN** values with **"unrecorded"**. Since these blank data were diregarded, filling them so makes it more meaningful:
 ```python
+# Fills NaN values with string value 'unrecorded'
 df = df.fillna('unrecorded')
 print(df.isna().sum())
 ```
@@ -267,13 +271,15 @@ The goal is to perform numeric conversion to some of these columns' data types. 
 
 The following code shows the factors that causes the columns' object data type:
 ```python
+# Creates separate columns for better visualization
 streams_column = df['streams']
 deezerp_column = df['in_deezer_playlists']
 shazamc_column = df['in_shazam_charts']
 
+# Filters the column and selects non-numeric values only
 print(streams_column[~streams_column.str.isnumeric()], '\n')
 print(deezerp_column[~deezerp_column.str.isnumeric()].head(), '\n')
-print(shazamc_column[~shazamc_column.str.isnumeric()].head(), '\n')
+print(shazamc_column[~shazamc_column.str.isnumeric()].head())
 ```
 Output:
 ```
@@ -298,10 +304,12 @@ The value that is responsible for the *"streams"* column's object data type can 
 
 The following numerically converts the non-numeric column:
 ```python
+# Converts non-numeric values to NaN, allowing for column conversion to numeric data type
 df['streams'] = pd.to_numeric(df['streams'], errors = 'coerce')
 df['in_deezer_playlists'] = pd.to_numeric(df['in_deezer_playlists'].str.replace(',', ''), errors='coerce')
 df['in_shazam_charts'] = pd.to_numeric(df['in_shazam_charts'].str.replace(',', ''), errors='coerce')
 
+# Checks their new data type
 print(df['streams'].dtype)
 print(df['in_deezer_playlists'].dtype)
 print(df['in_shazam_charts'].dtype)
@@ -369,6 +377,7 @@ Output:
 
 After removing the duplicates, let us also fix their corresponding "artist_count":
 ```python
+# Assigns the column 'artist_count' with length value of the 'artist(s)_name' column
 df['artist_count'] = df['artist(s)_name'].str.len()
 df[has_duplicates]
 ```
@@ -389,6 +398,7 @@ After data cleaning comes data exploration and analysis wherein we uncover patte
 
 The following shows the statistics of the dataset:
 ```python
+# Provides a Summary of Statistics
 df.describe()
 ```
 Output:
@@ -447,6 +457,27 @@ Based on the plot, there is a noticeable increase in the number of tracks produc
 
 ***As for outliers, it can be obsrved that there are tracks in the 90's but in a very small amount. For artist count, there are some tracks that involved 8 artists, which is a signifciant outlier considering that most tracks are produced by one or two persons commonly.***
 
+The following code obtains the top 5 most streamed tracks in the dataset:
+```python
+# Obtains the 5 highest values in the 'streams' column
+top5_tracks_instreams = df.nlargest(5, 'streams')
+```
+The following plots the obtained tracks:
+```python
+# Sets the figure size to shape (7, 6)
+plt.figure(figsize=(7, 6))
+
+# Plots a horizontal barplot with 'streams' and 'track_name' as x and y respectively
+sns.barplot(data = top5_tracks_instreams, x = 'streams', y = 'track_name', hue = 'track_name', palette = 'YlOrBr')
+
+# Adds the necessary labels for the graph 
+plt.title('Top 5 Most Streamed Tracks')
+plt.xlabel('Total Number of Streams')
+plt.ylabel('Tracks')
+
+# Displays the plot
+plt.show()
+```
 Output:
 ![image](https://github.com/user-attachments/assets/d0bdca8f-fdea-4820-b488-88111f3a0d18)
 
@@ -514,7 +545,7 @@ plt.show()
 Output:
 ![image](https://github.com/user-attachments/assets/aae541ed-e2f0-47aa-9ca1-2afebf86243d)
 
-***Exploration Question 4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.
+***Exploration Question 4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.  
 Based on the visual plot, the number of tracks produced follows the proportional increase in year produced. Tracks that are produced recently are much higher than tracks released in the 90's***
 
 The following counts the number of tracks released per month:
@@ -545,7 +576,7 @@ Output:
 Based on the plot above, the number of tracks produced seems to be on the higher side in the first half of the year. Tracks produced later in the year is not as high compared with the first half.***
 
 
-The following prepares the essentials for plotting heatmaps. `corrwith()` obtains the correlation between *"streams"* and the `columns_to_plot`:
+The following prepares the essentials for plotting heatmaps. `corrwith()` calculates the correlation between *"streams"* and the `columns_to_plot`:
 ```python
 # Filters the dataframe to only contain the following columns
 columns_to_plot = df[['bpm', 'danceability_%', 'valence_%', 'energy_%', 'acousticness_%', 'instrumentalness_%', 'liveness_%', 'speechiness_%']]
@@ -608,7 +639,7 @@ total_perplaylist.columns = ['Platform', 'Total Playlists']
 # Renames the values in the 'Platform' column
 total_perplaylist['Platform'] = ['Spotify Playlist', 'Apple Playlist', 'Deezer Playlist']
 ```
-The following plots the prepared data
+The following plots the prepared data:
 ```python
 # Sets the figure size to shape (12, 6)
 plt.figure(figsize=(12,6))
@@ -630,7 +661,7 @@ Output:
 ***Exploration Question 6.1 How do the numbers of tracks in spotify_playlists, deezer_playlists, and apple_playlists compare? Which platform seems to favor the most popular tracks?  
 Based on the output, spotify seems to significantly overwhelm the two other playlist in terms of playlist count. This means that it is spotify that favor the most popular tracks.***
 
-The following groups the data with common *"key"* and *"mode"* values:
+The following groups and sums the data with common *"key"* and *"mode"* values:
 ```python
 # Groups and sums the common values in 'key' with the exception of 'unrecorded' values
 key_streams_group = df[df['key'] != 'unrecorded'].groupby('key')['streams'].sum().reset_index()
@@ -702,13 +733,13 @@ Output:
 
 The same is done in the code below, with an addition function used to count the presence of each artist in each chart. Charts generally represent the rankings of tracks. Hence, it is unreasonable to sum the chart values. Instead, we will select non-zero values, and we will treat them as tracks that were able to reach charts. A value of 0 means that the track is not counted in the artist's presence:
 ```python
-def convert_to_binary(x):
+def convert_to_one(x):
     if x > 0:
         return 1
     else:
         return 0
 
-df_exploded.iloc[:,[7,10,12,13]] = df_exploded.iloc[:,[7,10,12,13]].map(convert_to_binary)
+df_exploded.iloc[:,[7,10,12,13]] = df_exploded.iloc[:,[7,10,12,13]].map(convert_to_one)
 
 artist_charts_group = df_exploded.groupby('artist(s)_name')[['in_spotify_charts', 'in_apple_charts', 'in_deezer_charts', 'in_shazam_charts']].sum().reset_index()
 
@@ -735,12 +766,11 @@ Output:
 ![image](https://github.com/user-attachments/assets/e2db501e-9dc2-457a-9e90-7f6e61c7455e)
 
 ***Exploration Question 7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.  
-For both the spotify and apple playlist, it can be seen that The Weeknd appeared the most. In the deezer playlist, it is eminem that topped the lists. For the apple, spotify, and deezer charts, it is bad bunny that is most frequently seen. When it comes to shazam charts, on the other hand, it is Taylor Swift that leads the rest.***
+For both the spotify and apple playlist, it can be seen that The Weeknd appeared the most. In the deezer playlist, it is eminem that topped the lists. For the apple, spotify, and deezer charts, it is bad bunny that is most frequently seen. When it comes to shazam charts, on the other hand, it is Taylor Swift that leads the rest. In totality, it is The Weeknd who appeared the most in all playlists while in charts, it is Bad Bunny.***
 
 
 
 ### Key Insights
-Key insights:
 * Tracks produced recently are much common than tracks produced in older dates. This indicate that Spotify focuses on recently produced tracks than older ones.
 * Tracks produced are higher in the first months of the year. This means artists tend to produce early at the year.
 * Spotify users favor songs that are produced in major mode. For keys, they prefer those produced in C#
@@ -748,10 +778,10 @@ Key insights:
 
 
 ## References
-Spotify Dataset
-ELGIRIYEWITHANA, NIDULA. “Most Streamed Spotify Songs 2023.” Www.kaggle.com, www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023.
+Spotify Dataset  
+ELGIRIYEWITHANA, NIDULA. “Most Streamed Spotify Songs 2023.” Www.kaggle.com, www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023.  
 
 ## About Me
-Guillian R. Ramos
-2ECE-D
-guillian.ramos.eng@ust.edu.ph
+Guillian R. Ramos  
+2ECE-D  
+guillian.ramos.eng@ust.edu.ph  
