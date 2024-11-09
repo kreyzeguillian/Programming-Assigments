@@ -4,35 +4,92 @@
 - [Introduction](#introduction)
   - About the Dataset
   - Exploration Questions
-- [Overview of the Data]
-- [Data Cleaning and Preprocessing](#data-cleaning-and-preprocessing)
-  - Handling Missing Values
-  - Handling Data Type Inconsistencies
-  - Handling Duplicates
-- [Data Exploration and Analysis](#data-exploration-and-analysis)
-  - Summary of Statistics
-  - Data Visualization
+  - Formatting Conventions
+- Exploratory Data Analysis
+  - Essentials
+  - [Overview of the Data](#overview-of-the-data)
+  - [Data Cleaning and Preprocessing](#data-cleaning-and-preprocessing)
+    - Handling Missing Values
+    - Handling Data Type Inconsistencies
+    - Handling Duplicates
+  - [Data Exploration and Analysis](#data-exploration-and-analysis)
+    - Summary of Statistics
+    - Data Visualization
+  - [Key Insights](#key-insights)
 - [References](#references)
-- [About Me](#about-the-author)
 
 ## Introduction
 
-Provide a detailed overview of your project. Explain the purpose, background, and any relevant goals. This project aims to perform an exploratory data analysis on a spotify dataset. It aims to utilize python libraries, specifically pandas, matplotlib, and seaborn to accomplish data preprocessing and visualization.
+This project focuses on performing an exploratory data analysis (EDA) on a Spotify dataset, utilizing Jupyter Notebook as the primary IDE for an interactive and efficient workflow. Using Python libraries such as pandas for data preprocessing, matplotlib and seaborn for detailed visualizations, the analysis aims to uncover patterns, trends, and insights within the dataset. Through EDA, the project seeks to clean, transform, and visualize data to understand key aspects of song popularity, audio features, and streaming performance across platforms.
 
-## Data Cleaning and Preprocessing
+### About the Dataset
+
+This dataset provides a detailed look at 2023's most popular songs as highlighted on Spotify, one of the world's leading music streaming platforms known for its vast library, curated playlists, and personalized recommendations. The dataset includes more than the usual metrics, covering track names, artist/s, release dates, and streaming characteristics. It also tracks each song's presencec on Spotify playlists and charts, along with appearances on Apple Music, Deezer, and Shazam. With various musical attributes included, the dataset is a comprehensive tool for analyzing song popularity across platforms.
+
+### Exploration Questions
+The following are some questions that this EDA aims to answer:
+
+1. Overview of Dataset  
+  1.1 How many rows and columns does the dataset contain?  
+  1.2 What are the data types of each column? Are there any missing values?  
+
+2. Basic Descriptive Statistics  
+  2.1 What are the mean, median, and standard deviation of the streams column?  
+  2.2 What is the distribution of released_year and artist_count? Are there any noticeable trends or outliers?  
+
+3. Top Performers  
+  3.1 Which track has the highest number of streams? Display the top 5 most streamed tracks.  
+  3.2 Who are the top 5 most frequent artists based on the number of tracks in the dataset?  
+
+4. Temporal Trends  
+  4.1 Analyze the trends in the number of tracks released over time. Plot the number of tracks released per year.  
+  4.2 Does the number of tracks released per month follow any noticeable patterns? Which month sees the most releases?  
+
+5. Genre and Music Characteristics  
+  5.1 Examine the correlation between streams and musical attributes like bpm, danceability_%, and energy_%. Which attributes seem to influence streams the most?  
+  5.2 Is there a correlation between danceability_% and energy_%? How about valence_% and acousticness_%?  
+
+6. Platform Popularity  
+  6.1 How do the numbers of tracks in spotify_playlists, spotify_charts, and apple_playlists compare? Which platform seems to favor the most popular tracks?  
+
+7. Advanced Analysis  
+  7.1 Based on the streams data, can you identify any patterns among tracks with the same key or mode (Major vs. Minor)?  
+  7.2 Do certain genres or artists consistently appear in more playlists or charts? Perform an analysis to compare the most frequently appearing artists in playlists or charts.  
+
+### Formatting Conventions
+The following formatting conventions are used throughout this project to enhance clarity and readability for the reader:
+* Values, in all data types, are bolded.  
+  Example: **'s'**, **13**, **"Hello, World"**
+* Code and output examples are presented in code blocks for easy reference  
+  Example:
+```python
+# Code Block
+```
+* Variables and functions are presented in inline code formatting.  
+  Example: `function_name`, `var`
+* Column headers are italicized and quoted to distinguish them from regular text.  
+  Example: *"sum"*, *"average"*, *"average"*
+
+## Code Walkthrough and Analysis
+
+
+### Overview of the Data
+
+
+### Data Cleaning and Preprocessing
 Cleaning and preprocessing the data is essential for data analysis. It considers several key aspects as the preparation of data is done by verifying its structure and relevance to ensure data quality and readiness for analysis. Here are some factors that will be taken into account in this Exploratory Analysis:
 * Null values
 * Data type inconsistencies
 * Duplicates
 
-### Handling Missing Values
+#### Handling Missing Values
 Missing values are common in datasets, especially with large ones. Due to these values, analysis cannot be done and same goes for visualization which wastes the data's potential and neglects its importance.
 
 The following code gives an overview of columns that contain _"NaN"_ values.
 ```python
 print(df.isna().sum())
 ```
-#### Output:
+Output:
 ```
 track_name               0
 artist(s)_name           0
@@ -69,7 +126,7 @@ Instead, it would be better to replace these _"NaN"_ values with something much 
 df = df.fillna('unrecorded')
 print(df.isna().sum())
 ```
-#### Output:
+Output:
 ```
 track_name              0
 artist(s)_name          0
@@ -97,13 +154,13 @@ liveness_%              0
 speechiness_%           0
 dtype: int64
 ```
-### Handling Data Type Inconsistencies
+#### Handling Data Type Inconsistencies
 The code below shows a list of each column's data type:
 ```python
 # Prints the data type of each column
 print(df.dtypes)
 ```
-#### Output:
+Output:
 ```
 track_name              object
 artist(s)_name          object
@@ -155,7 +212,7 @@ print(streams_column[~streams_column.str.isnumeric()], '\n')
 print(deezerp_column[~deezerp_column.str.isnumeric()].head(), '\n')
 print(shazamc_column[~shazamc_column.str.isnumeric()].head(), '\n')
 ```
-#### Output:
+Output:
 ```
 574    BPM110KeyAModeMajorDanceability53Valence75Ener...
 Name: streams, dtype: object
@@ -186,7 +243,7 @@ print(df['streams'].dtype)
 print(df['in_deezer_playlists'].dtype)
 print(df['in_shazam_charts'].dtype)
 ```
-#### Output:
+Output:
 ```
 float64
 int64
@@ -203,7 +260,7 @@ float64
 
 As observed, the columns now have been converted to a numeric data type. Being a numeric column, they are now able to be used in mathematical functions.
 
-### Handing Duplicates
+#### Handing Duplicates
 Duplicated data is another problem that often occur in raw data. Their presence could affect the results in data analysis especially when dealing with numerous of them.
 
 The following code checks for any existing duplicates in the data frame:
@@ -211,7 +268,7 @@ The following code checks for any existing duplicates in the data frame:
 # Filters the rows with existing duplicates
 df[df.duplicated()]
 ```
-#### Output:
+Output:
 | track_name   | artist(s)_name   | artist_count   | released_year   | released_month   | released_day   | in_spotify_playlists   | in_spotify_charts   | streams   | in_apple_playlists   | in_apple_charts   | in_deezer_playlists   | in_deezer_charts   | in_shazam_charts   | bpm   | key   | mode   | danceability_%   | valence_%   | energy_%   | acousticness_%   | instrumentalness_%   | liveness_%   | speechiness_%   |
 |--------------|------------------|----------------|-----------------|------------------|----------------|------------------------|---------------------|-----------|----------------------|-------------------|-----------------------|--------------------|--------------------|-------|-------|--------|------------------|-------------|------------|------------------|----------------------|--------------|-----------------|
 
@@ -228,7 +285,7 @@ has_duplicates = df['artist(s)_name'].apply(lambda x: len(x) != len(set(x)))
 # Filters rows that has duplicates
 df[has_duplicates]
 ```
-#### Output:
+Output:
 |     | track_name      | artist(s)_name                                                   |   artist_count |   released_year |   released_month |   released_day |   in_spotify_playlists |   in_spotify_charts |   streams |   in_apple_playlists |   in_apple_charts |   in_deezer_playlists |   in_deezer_charts |   in_shazam_charts |   bpm | key   | mode   |   danceability_% |   valence_% |   energy_% |   acousticness_% |   instrumentalness_% |   liveness_% |   speechiness_% |
 |----:|:----------------|:-----------------------------------------------------------------|---------------:|----------------:|-----------------:|---------------:|-----------------------:|--------------------:|----------:|---------------------:|------------------:|----------------------:|-------------------:|-------------------:|------:|:------|:-------|-----------------:|------------:|-----------:|-----------------:|---------------------:|-------------:|----------------:|
 | 209 | Area Codes      | Kaliii, Kaliii                                                   |              2 |            2023 |                3 |             17 |                   1197 |                  13 | 113509496 |                   44 |                34 |                    25 |                  1 |                171 |   155 | C#    | Major  |               82 |          51 |         39 |                2 |                    0 |            9 |              49 |
@@ -240,7 +297,7 @@ As we can see, there are indeed duplicate artists. As part of data preprocessing
 df['artist(s)_name'] = df['artist(s)_name'].apply(lambda x: list(set(x)))
 df[has_duplicates]
 ```
-#### Output:
+Output:
 |     | track_name      | artist(s)_name                                                   |   artist_count |   released_year |   released_month |   released_day |   in_spotify_playlists |   in_spotify_charts |   streams |   in_apple_playlists |   in_apple_charts |   in_deezer_playlists |   in_deezer_charts |   in_shazam_charts |   bpm | key   | mode   |   danceability_% |   valence_% |   energy_% |   acousticness_% |   instrumentalness_% |   liveness_% |   speechiness_% |
 |----:|:----------------|:-----------------------------------------------------------------|---------------:|----------------:|-----------------:|---------------:|-----------------------:|--------------------:|----------:|---------------------:|------------------:|----------------------:|-------------------:|-------------------:|------:|:------|:-------|-----------------:|------------:|-----------:|-----------------:|---------------------:|-------------:|----------------:|
 | 209 | Area Codes      | Kaliii, Kaliii                                                   |              2 |            2023 |                3 |             17 |                   1197 |                  13 | 113509496 |                   44 |                34 |                    25 |                  1 |                171 |   155 | C#    | Major  |               82 |          51 |         39 |                2 |                    0 |            9 |              49 |
@@ -252,18 +309,18 @@ After removing the duplicates, let us also fix their corresponding "artist_count
 df['artist_count'] = df['artist(s)_name'].str.len()
 df[has_duplicates]
 ```
-#### Output:
+Output:
 |     | track_name      | artist(s)_name                                                   |   artist_count |   released_year |   released_month |   released_day |   in_spotify_playlists |   in_spotify_charts |   streams |   in_apple_playlists |   in_apple_charts |   in_deezer_playlists |   in_deezer_charts |   in_shazam_charts |   bpm | key   | mode   |   danceability_% |   valence_% |   energy_% |   acousticness_% |   instrumentalness_% |   liveness_% |   speechiness_% |
 |----:|:----------------|:-----------------------------------------------------------------|---------------:|----------------:|-----------------:|---------------:|-----------------------:|--------------------:|----------:|---------------------:|------------------:|----------------------:|-------------------:|-------------------:|------:|:------|:-------|-----------------:|------------:|-----------:|-----------------:|---------------------:|-------------:|----------------:|
 | 209 | Area Codes      | Kaliii, Kaliii                                                   |              2 |            2023 |                3 |             17 |                   1197 |                  13 | 113509496 |                   44 |                34 |                    25 |                  1 |                171 |   155 | C#    | Major  |               82 |          51 |         39 |                2 |                    0 |            9 |              49 |
 | 503 | Fingers Crossed | Lauren Spencer Smith, Lauren Spencer Smith, Lauren Spencer Smith |              3 |            2022 |                1 |              5 |                   2235 |                   0 | 349585590 |                   65 |                 7 |                    70 |                 16 |                  6 |   109 | F     | Major  |               60 |          45 |         47 |               62 |                    0 |           31 |               5 |
 
 
-## Data Exploration and Analysis
+### Data Exploration and Analysis
 
 After data cleaning comes data exploration and analysis wherein we uncover patterns. In this segment, the dataset will be narrated both numerically and graphically. Patterns, relationships, correlations, as well as trends will be focused and understood, setting the foundation for further analysis.
 
-### Summary of Statistics
+#### Summary of Statistics
 
 The following shows the statistics of the dataset:
 ```python
@@ -281,4 +338,4 @@ df.describe()
 | 75%   |       2        |       2022      |          9       |       22       |                5542    |             16      |              88      |           87      |            2       | 140      |          78      |     70      |    77      |          43      |              0       |      24      |        11       |
 | max   |       8        |       2023      |         12       |       31       |               52898    |            147      |             672      |          275      |           58       | 206      |          96      |     97      |    97      |          97      |             91       |      97      |        64       |
 
-### Data Visualization
+#### Data Visualization
